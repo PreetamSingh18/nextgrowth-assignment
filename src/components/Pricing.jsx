@@ -18,7 +18,7 @@ const Pricing = () => {
 }
 // console.log(formdata);
 
-const url="/formsdata/475";
+const url="/formapi/475";
 
 const handleSubmit=async(e)=>{
   e.preventDefault();
