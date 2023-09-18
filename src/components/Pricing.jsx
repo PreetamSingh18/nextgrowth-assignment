@@ -1,6 +1,8 @@
 import  Slider  from "@mui/material/Slider";
 import  Axios  from "axios";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Pricing = () => {
   const [clickbtn, setclickbtn] = useState(false);
@@ -22,21 +24,34 @@ const url="/formapi/475";
 
 const handleSubmit=async(e)=>{
   e.preventDefault();
-   await Axios.post(url,{
-    firstname:formdata.firstname,
-    email:formdata.email,
-    message:formdata.message,
-  })
-  .then((res)=>{
-       alert("Form Submitted");
-       window.location.reload(false);
-  })
-  .catch((err)=>{
-      // alert("Something went wrong");
-      // window.location.reload(false);
+  if (formdata.firstname === "") {
+    // document.getElementById('name').style.borderColor="red";
+    alert("Enter Name")
+  }
+  else if(formdata.email===""){
+    alert("Enter Email")
+  }
+  else if(formdata.message===""){
+    alert("Enter Order Details");
+  }
+  if (formdata.firstname !== "" && formdata.email !== "" && formdata.message!== "") {
+    
+    await Axios.post(url,{
+      firstname:formdata.firstname,
+      email:formdata.email,
+      message:formdata.message,
+    })
+    .then((res)=>{
+      alert("Form Submitted");
+      window.location.reload(false);
+    })
+    .catch((err)=>{
+      alert("Something went wrong");
+      window.location.reload(false);
       console.log(err);
-  })
-  console.log("submitted" + formdata.firstname, formdata.email, formdata.message);
+    })
+  }
+ 
 }
 
 
@@ -66,6 +81,9 @@ setfilterNum(e.target.value);
           <h2>Pricing</h2>
           <button className="btn2">Sign up</button>
         </div>
+        <div className="Bars">
+          <FontAwesomeIcon icon={faBars}/>
+        </div>
       </div>
       <div className="mid-content">
         <h4>Pricing</h4>
@@ -76,7 +94,7 @@ setfilterNum(e.target.value);
         </p>
       </div>
       <div className="FilterPlanBox">
- <h3>Filter your Plan</h3>
+ <h3>Select Your Plans</h3>
  <div>
       <Slider
         aria-label="Custom marks"
